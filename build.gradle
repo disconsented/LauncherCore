@@ -27,3 +27,21 @@ dependencies {
     compile group: 'org.eclipse.aether', name: 'aether-transport-http', version:'1.0.0.v20140518'
     compile group: 'org.apache.maven', name: 'maven-aether-provider', version:'3.2.5'
 }
+
+// Source Jar
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+// Javadoc Jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
+
+tasks.build.dependsOn sourceJar, javadocJar
+
+tasks.withType(JavaCompile) { task ->
+    task.options.encoding = 'UTF-8'
+}
