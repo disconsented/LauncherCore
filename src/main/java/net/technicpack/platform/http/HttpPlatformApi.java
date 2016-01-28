@@ -72,6 +72,10 @@ public class HttpPlatformApi implements IPlatformApi {
     @Override
     public NewsData getNews() throws RestfulAPIException {
         String url = platformUrl + "news?build="+launcherBuild;
+        String replacementURL = "@NEWSURL@";
+        if(replacementURL != ""){
+            url = replacementURL;
+        }
         return RestObject.getRestObject(NewsData.class, url);
     }
 }
